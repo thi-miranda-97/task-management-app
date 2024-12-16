@@ -1,0 +1,22 @@
+{
+  "name": "task-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thi-miranda-97/task-management-js.git"
+  },
+  "author": "Thi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thi-miranda-97/task-management-js/issues"
+  },
+  "homepage": "https://github.com/thi-miranda-97/task-management-js#readme",
+  "devDependencies": {
+    "node-sass": "^9.0.0"
+  }
+}
