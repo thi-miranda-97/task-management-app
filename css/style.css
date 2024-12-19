@@ -1,17 +1,275 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.flex, .task__item--footer, .task__item--divider, .task__list .task__item .task__item--heading .task__item--options, .task__list .task__item .task__item--heading, .modal .modal__content div, .modal .modal__content .task__btn, .navigation__user-container, .naviagtion__pages-container, .navigation .navigation__logo-container, .navigation {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.grid, .task__list, #overview .task__container, #overview {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.section, .navigation {
+  margin: 4.8rem auto;
+}
+
+.tags, .task__item--footer .priority-high, .task__item--footer .priority-medium, .task__item--footer .priority-low {
+  padding: 0.4rem 1.4rem;
+  color: #fbfbfb;
+  border-radius: 0.7rem;
+}
+
 *,
 *:after,
 *:before {
   margin: 0;
   padding: 0;
-  box-sizing: inherit; }
+  box-sizing: inherit;
+}
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+}
 
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.6;
-  padding: 3rem;
-  box-sizing: border-box; }
+  padding: 0 3rem 0 3rem;
+  box-sizing: border-box;
+  color: #222222;
+  background-color: #fbfbfb;
+}
+
+.navigation {
+  justify-content: space-between;
+}
+.navigation .navigation__logo-container {
+  justify-content: start;
+}
+.navigation .navigation__logo-container img {
+  width: 4.8rem;
+  height: auto;
+}
+.navigation .navigation__logo-container span {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.naviagtion__pages-container {
+  width: 50rem;
+  justify-content: space-around;
+  border-radius: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1.4rem;
+}
+.naviagtion__pages-container .navigation__pages-link {
+  background-color: inherit;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: inherit;
+  border-radius: 0.7rem;
+  padding: 0.4rem 2rem;
+}
+.naviagtion__pages-container .navigation__pages-link.active {
+  background-color: #4c35de;
+  color: #fbfbfb;
+}
+
+.navigation__user-container div {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  background-color: #4c35de;
+}
+
+.task-container {
+  display: none;
+}
+.task-container.active {
+  display: block;
+}
+
+#overview {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 128rem;
+  margin: 3.2rem auto;
+  gap: 2.4rem;
+  align-items: start;
+}
+#overview .task__container {
+  width: 95%;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+#overview .task__container h2 {
+  font-size: 2rem;
+}
+#overview .task__container .btn--add {
+  width: 100%;
+  border: 1px solid currentColor;
+  border-radius: 0.7rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 2rem;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+  transition: all 0.3;
+}
+#overview .task__container .btn--add:hover {
+  transform: scale(1.05);
+  font-weight: 600;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+.modal.hidden {
+  display: none;
+}
+.modal .modal__content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: #fbfbfb;
+  padding: 2rem;
+  border-radius: 0.7rem;
+  width: 50rem;
+  font-family: inherit;
+}
+.modal .modal__content h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+.modal .modal__content form label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+.modal .modal__content form input, .modal .modal__content form textarea, .modal .modal__content form select {
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d3d3d3;
+  border-radius: 0.7rem;
+  background-color: transparent;
+}
+.modal .modal__content .task__btn {
+  justify-content: center;
+}
+.modal .modal__content .task__btn button {
+  font-family: inherit;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  background-color: #4c35de;
+  color: #fbfbfb;
+  border: none;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+.modal .modal__content .task__btn button:hover {
+  transform: scale(1.05);
+}
+.modal .modal__content div {
+  justify-content: end;
+}
+.modal .modal__content div #closeModal {
+  border: 1px solid currentColor;
+  border-radius: 0.7rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 2rem;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+  transition: all 0.3;
+}
+.modal .modal__content div #closeModal:hover {
+  background-color: #4c35de;
+  color: #fbfbfb;
+}
+
+/* Priority-based styles for tasks */
+.task__list {
+  list-style: none;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+}
+.task__list .task__item {
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1rem 1.4rem;
+  border-radius: 0.7rem;
+}
+.task__list .task__item .task__item--heading {
+  position: relative;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.task__list .task__item .task__item--heading h3 {
+  font-size: 1.6rem;
+}
+.task__list .task__item .task__item--heading .task__item--options {
+  font-size: 1.6rem;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.task__list .task__item .task__item--heading .task__item--options .editTaskButton,
+.task__list .task__item .task__item--heading .task__item--options .deleteTaskButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.task__list .task__item .task__item--heading .task__item--options .editTaskButton:hover,
+.task__list .task__item .task__item--heading .task__item--options .deleteTaskButton:hover {
+  transform: scale(1.2);
+}
+
+.task__item--text {
+  margin-bottom: 1rem;
+}
+
+.task__item--divider {
+  background-color: #d3d3d3;
+  width: 100%;
+  justify-self: center;
+  height: 0.1rem;
+}
+
+.task__item--footer {
+  justify-content: space-between;
+  margin: 1.2rem 0;
+  /* Priority classes with specific background colors */
+}
+.task__item--footer .priority-low {
+  background-color: #4d4d00;
+}
+.task__item--footer .priority-medium {
+  background-color: #105865;
+}
+.task__item--footer .priority-high {
+  background-color: #a80000;
+}
+.task__item--footer .task__item--deadline {
+  font-style: italic;
+}
+
+/*# sourceMappingURL=style.css.map */

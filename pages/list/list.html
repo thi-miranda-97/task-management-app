@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel=""shortcut icon" type="image/png" href="img/favicon.png" />
+    <title>Task management</title>
+  </head>
+  <body>
+    <nav class="navigation">
+      <div class="navigation__logo-container">
+        <img src="../../img/favicon.png" alt="Logo Image" />
+        <span>TASK.</span>
+      </div>
+      <form action="search" class="search-bar">
+        <input type="text" />
+      </form>
+      <div class="navigation__user-container">
+        <span>Welcome, Thi</span>
+        <div></div>
+        
+    </nav>
+
+    <section class="filter">
+      <div class="filter__pages-container">
+        <a href="../overview/overview.html" class="filter__pages-link active">Overview</a>
+        <a href="./list.html" class="filter__pages-link">List</a>
+        <a href="../calendar/calendar.html" class="filter__pages-link">Calendar</a>
+      </div>
+      <div class="filter__tags-container">
+        <select name="priority" id="priority">
+          <option value="priority">Priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <select name="deadline" id="deadline">
+          <option value="Deadline">State</option>
+          <option value="today">Today’s tasks</option>
+          <option value="upcoming">Upcoming tasks</option>
+          <option value="overdue">Overdue tasks</option>
+        </select>
+      </div>
+    </section>
+
+    <main id="list" class="task-container">
+      <div>List</div>
+      
+    <script src="../../main.js"></script>
+    <script src="./list.js"></script>
+  </body>
+</html>
