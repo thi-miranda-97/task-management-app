@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" type="image/png" href="./img/favicon.png" />
+    <title>Task Management</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav__logo-container">
+        <img src="./img/favicon.png" alt="Logo" class="nav__logo" />
+        <span class="nav__logo-text">TASK.</span>
+      </div>
+      <div class="nav__links">
+        <a href="#overview" class="nav__link active">Overview</a>
+        <a href="#list" class="nav__link">List</a>
+        <a href="#calendar" class="nav__link">Calendar</a>
+      </div>
+      <div class="nav__user">
+        <span class="nav__user-text">Welcome, Thi</span>
+        <div></div>
+      </div>
+    </nav>
+
+    <!-- Modal for Adding a Task -->
+    <div id="task-modal" class="modal hidden">
+      <div class="modal__content">
+        <div class="modal__content-btn">
+          <button id="close-modal" class="modal__close-btn">x</button>
+        </div>
+
+        <h3 class="modal__heading">Add New Task</h3>
+        <form id="task-form" class="modal__form">
+          <label for="title" class="modal__label">Title:</label>
+          <input
+            type="text"
+            id="title"
+            class="modal__input"
+            name="title"
+            required
+          />
+          <label for="description" class="modal__label">Description:</label>
+          <textarea
+            id="description"
+            class="modal__textarea"
+            name="description"
+            rows="3"
+          ></textarea>
+          <label for="priority" class="modal__label">Priority:</label>
+          <select id="priority" class="modal__select" name="priority" required>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <label for="state" class="modal__label">State:</label>
+          <select id="state" class="modal__select" name="state" required>
+            <option value="todo">Not Started</option>
+            <option value="doing">In Progress</option>
+            <option value="done">Completed</option>
+          </select>
+          <label for="deadline" class="modal__label">Deadline:</label>
+          <input
+            type="date"
+            id="deadline"
+            class="modal__input"
+            name="deadline"
+            required
+          />
+          <div class="modal__form-btn">
+            <button type="submit" class="modal__submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <main>
+      <!-- Task Overview Section -->
+      <section id="overview" class="section">
+        <div class="task">
+          <h2 class="task__state" data-state="Not Started">Not Started</h2>
+          <ul class="task__list" id="overview-todo">
+            <!-- TASK CARD ITEM HERE -->
+          </ul>
+          <button class="task__btn task__btn--add">+</button>
+        </div>
+        <div class="task">
+          <h2 class="task__state" data-state="In Progress">In Progress</h2>
+          <ul class="task__list" id="overview-doing"></ul>
+          <button class="task__btn task__btn--add">+</button>
+        </div>
+        <div class="task">
+          <h2 class="task__state" data-state="Completed">Completed</h2>
+          <ul class="task__list" id="overview-done"></ul>
+          <button class="task__btn task__btn--add">+</button>
+        </div>
+      </section>
+
+      <!-- Task List Section -->
+      <section id="list" class="section">
+        <div class="list">
+          <!-- <div class="list__filters">
+            <select name="filter" id="filter" class="list__filter-select">
+              <option value="all">All tasks</option>
+              <option value="today">Today's tasks</option>
+              <option value="upcoming">Upcoming tasks</option>
+              <option value="overdue">Overdue tasks</option>
+            </select>
+            
+          </div> -->
+          <button class="list__btn task__btn--add">Add New Task</button>
+          <div class="list__content">
+            <div class="list__category">
+              <h2 class="task__state">Not Started</h2>
+              <ul class="list__tasks" id="list-todo"></ul>
+            </div>
+            <div class="list__category">
+              <h2 class="task__state">In Progress</h2>
+              <ul class="list__tasks" id="list-doing"></ul>
+            </div>
+            <div class="list__category">
+              <h2 class="task__state">Completed</h2>
+              <ul class="list__tasks" id="list-done"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calendar Section -->
+      <section id="calendar" class="section">
+        <div class="calendar__wrapper">
+          <div class="calendar__sidebar">
+            <div class="calendar__sidebar-date">
+              <div class="calendar__sidebar-date-container">
+                <div class="calendar__date-month">JAN</div>
+                <span class="calendar__date-day">03</span>
+              </div>
+              <div class="calendar__sidebar-date-content">
+                <p class="calendar__sidebar-month-year">January 2025</p>
+                <p class="calendar__sidebar-date-range">
+                  Jan 1, 2025 - Jan 31, 2025
+                </p>
+              </div>
+            </div>
+
+            <div class="calendar__sidebar-task">
+              <div class="calendar__sidebar-task-header">
+                <h2>Upcoming</h2>
+                <div class="calendar__sidebar-task-circles">
+                  <div class="circle-container">
+                    <div class="circle circle-todo"></div>
+                    <p>not started</p>
+                  </div>
+                  <div class="circle-container">
+                    <div class="circle circle-doing"></div>
+                    <p>in progress</p>
+                  </div>
+                  <div class="circle-container">
+                    <div class="circle circle-done"></div>
+                    <p>completed</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calendar__task">
+                <h3>Today</h3>
+                <ul class="calendar__tasks" id="calendar-today">
+                  <!-- TASK CARD ITEM HERE -->
+                </ul>
+              </div>
+              <div class="calendar__task">
+                <h3>Tomorrow</h3>
+                <ul class="calendar__tasks" id="calendar-tomorrow">
+                  <!-- TASK CARD ITEM HERE -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="calendar__content">
+            
+
+            <div class="calendar__header">
+              <button class="calendar__header-btn calendar__header-btn--prev">
+                <
+              </button>
+              <h3 class="calendar__header-title"></h3>
+              <button class="calendar__header-btn calendar__header-btn--next">
+                >
+              </button>
+            </div>
+            <div class="calendar__main">
+              <div class="calendar__head">
+                <p class="calendar__date">Mon</p>
+                <p class="calendar__date">Tue</p>
+                <p class="calendar__date">Wed</p>
+                <p class="calendar__date">Thu</p>
+                <p class="calendar__date">Fri</p>
+                <p class="calendar__date">Sat</p>
+                <p class="calendar__date">Sun</p>
+              </div>
+              <div class="calendar__grid">
+                <!-- Days will be dynamically generated here -->
+              </div>
+                
+                
+                </div>
+                <button class="task__btn task__btn--add">Add New Task</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./js/app.js" defer></script>
+  </body>
+</html>

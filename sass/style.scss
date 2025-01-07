@@ -1,0 +1,761 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// MEDIA QUERY BREAKPOINTS
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+
+// VARIABLES
+$color-accent-1: #a80000;
+$color-accent-2: #4d4d00;
+$color-accent-3: #105865;
+$color-dark: #222222;
+$color-light: #fbfbfb;
+$light-border: #757575;
+$overlay: rgba(0, 0, 0, 0.5);
+$shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+$large-size: 2.8rem;
+$medium-size: 2.4rem;
+$base-size: 2rem;
+$small-size: 1.6rem;
+$x-small: 1.4rem;
+
+$small-radius: 0.7rem;
+$large-radius: 1.5rem;
+
+// MIXINS
+@mixin flex($align: center, $justify: start, $gap: 1.2rem) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin grid($columns: 1fr, $gap: 1.2rem) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin btn-icon($radius: $small-radius) {
+  border: 1px solid currentColor;
+  border-radius: $radius;
+  padding: 0 0.8rem;
+  font-size: $base-size;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+  transition: all 0.3s;
+}
+
+@mixin btn($background, $text, $radius: $small-radius) {
+  font-family: inherit;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  background-color: $background;
+  color: $text;
+  border: none;
+  border-radius: $radius;
+  cursor: pointer;
+}
+
+@mixin card($shadow: $shadow, $radius: $small-radius) {
+  box-shadow: $shadow;
+  padding: 1rem 1.4rem;
+  border-radius: $radius;
+}
+
+@mixin tag($background-color: $color-accent-1, $text-color: $color-light) {
+  padding: 0.4rem 1.4rem;
+  color: $text-color;
+  border-radius: $small-radius;
+  background-color: $background-color;
+}
+
+// GLOBAL STYLES
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6;
+  padding: 0 3rem;
+  box-sizing: border-box;
+  color: $color-dark;
+  background-color: $color-light;
+}
+
+// REUSABLE COMPONENTS
+.section {
+  margin: 4.8rem auto;
+}
+
+.nav {
+  @include flex($justify: space-between);
+  @extend .section;
+
+  &__logo-container {
+    @include flex();
+
+    img {
+      width: 4.8rem;
+      height: auto;
+    }
+
+    span {
+      font-size: $medium-size;
+      font-weight: 700;
+    }
+  }
+
+  &__links {
+    @include grid($columns: repeat(3, 1fr), $gap: 3.2rem);
+    text-align: center;
+    width: 50rem;
+    padding: 2rem 4rem;
+    border-radius: $large-radius;
+    box-shadow: $shadow;
+
+    .nav__link {
+      width: 100%;
+      background-color: inherit;
+      text-decoration: none;
+      font-size: $x-small;
+
+      color: $light-border;
+      padding: 0.4rem 2rem;
+      border: 1px solid $light-border;
+      border-radius: $small-radius;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: translateY(-0.5rem);
+      }
+      &.active {
+        background-color: $color-dark;
+        color: $color-light;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__user {
+    @include flex();
+    div {
+      width: 4.8rem;
+      height: 4.8rem;
+      border-radius: 50%;
+      background-color: $color-dark;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $overlay;
+  @include grid;
+  place-items: center;
+  z-index: 1000;
+
+  &.hidden {
+    display: none;
+  }
+
+  &__content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50rem;
+    background-color: $color-light;
+    padding: 2rem;
+    border-radius: $small-radius;
+
+    &-btn {
+      @include flex($justify: end);
+
+      .modal__close-btn {
+        @include btn-icon();
+
+        &:hover {
+          background-color: $color-dark;
+          color: $color-light;
+        }
+      }
+    }
+
+    h3 {
+      margin-bottom: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    form {
+      label {
+        display: block;
+        margin: 1rem 0 0.5rem;
+        font-weight: 600;
+      }
+
+      input,
+      textarea,
+      select {
+        font-family: inherit;
+        font-size: inherit;
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid $light-border;
+        border-radius: $small-radius;
+        background-color: transparent;
+      }
+
+      div {
+        @include flex($justify: center);
+        .modal__submit-btn {
+          @include btn($color-dark, $color-light);
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+// .task__item {
+//   @include card();
+//   padding: 1rem;
+//   width: 100%;
+// }
+
+.no-task-message {
+  font-size: xx-small;
+  font-style: italic;
+  color: $light-border;
+  text-align: center;
+}
+
+////////////////////////////////////////////////////////////////////////////
+// OVERVIEW MAIN SECTION STYLES
+#overview {
+  @include grid($columns: repeat(3, 1fr), $gap: 2.4rem);
+  justify-content: space-between;
+  align-items: start;
+  margin: 3.2rem auto;
+
+  &.hidden {
+    display: none;
+  }
+
+  .task {
+    width: 95%;
+    @include grid();
+    margin-bottom: 1.8rem;
+
+    &__state {
+      font-size: $small-size;
+      margin-bottom: 0.8rem;
+      padding: 1.2rem 2.4rem;
+      font-weight: 600;
+      border-radius: $small-radius;
+    }
+
+    &__list {
+      width: 95%;
+      list-style: none;
+      @include grid($gap: 2.4rem);
+      margin: 0 auto;
+
+      .task__item {
+        &.task__item--overview {
+          @include card();
+          padding: 1rem;
+          width: 100%;
+        }
+        &-header {
+          @include flex($justify: space-between);
+          h4 {
+            margin-bottom: 1rem;
+          }
+
+          .task__item-description1 {
+            display: none;
+          }
+
+          .task__item-options1 {
+            @include flex($justify: end, $gap: 0);
+            font-size: $small-size;
+
+            .task__btn {
+              @include btn-icon();
+              background-color: transparent;
+              border: none;
+
+              &:hover {
+                transform: scale(1.1);
+              }
+            }
+          }
+        }
+
+        &-description2 {
+          font-size: x-small;
+          margin-bottom: 1rem;
+        }
+
+        &-divider {
+          background-color: $light-border;
+          width: 100%;
+          height: 0.1rem;
+        }
+
+        &-footer {
+          @include flex($justify: space-between);
+          margin: 1.2rem 0;
+
+          .task__priority--low {
+            @include tag($background-color: $color-accent-2);
+          }
+
+          .task__priority--medium {
+            @include tag($background-color: $color-accent-3);
+          }
+
+          .task__priority--high {
+            @include tag($background-color: $color-accent-1);
+          }
+
+          .task__item-deadline {
+            font-size: x-small;
+            font-style: italic;
+          }
+        }
+        .task__item-options2 {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .task__btn--add {
+    width: 100%;
+    margin-top: 1.8rem;
+    @include btn-icon($small-radius);
+
+    &:hover {
+      background-color: $color-dark;
+      color: $color-light;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////
+// LIST MAIN SECTION STYLES
+
+#list {
+  @include grid($gap: 2.4rem);
+  margin: 0 auto;
+  &.hidden {
+    display: none;
+  }
+  .list {
+    .task__btn--add {
+      @include btn($color-dark, $color-light, $small-radius);
+      margin: 0;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    // &__filters {
+    //   @include flex($gap: 3.2rem);
+
+    //   #filter {
+    //     font-family: inherit;
+    //     font-size: $small-size;
+    //     padding: 0.8rem 1.2rem;
+    //     border-radius: $small-radius;
+    //   }
+    // }
+
+    &__content {
+      @include grid($gap: 2.4rem);
+      align-items: start;
+
+      .list__category {
+        padding: 2.4rem;
+        background: #f0f0f0;
+        margin: 1.8rem 0;
+        border-radius: $small-radius;
+
+        h2 {
+          display: inline-block;
+          font-weight: 600;
+
+          font-size: $small-size;
+          margin-bottom: 1.2rem;
+          padding: 1.2rem 2.4rem;
+          border-radius: $small-radius;
+        }
+
+        .list__tasks {
+          list-style: none;
+          width: 95%;
+          @include grid();
+          margin: 1.8rem auto;
+
+          .task__item {
+            &.task__item--list {
+              @include card();
+              padding: 1rem;
+              width: 100%;
+              @include grid($columns: 2fr 1fr 0.2fr, $gap: 3.2rem);
+            }
+
+            &-header {
+              h4 {
+                margin-bottom: 0.5rem;
+              }
+
+              .task__item-description1 {
+                font-size: xx-small;
+              }
+
+              .task__item-options1 {
+                display: none;
+              }
+            }
+
+            &-description2 {
+              display: none;
+            }
+
+            &-divider {
+              display: none;
+            }
+
+            &-footer {
+              @include flex($justify: space-around);
+              margin: 1.2rem 0;
+
+              .task__priority--low {
+                @include tag($background-color: $color-accent-2);
+              }
+
+              .task__priority--medium {
+                @include tag($background-color: $color-accent-3);
+              }
+
+              .task__priority--high {
+                @include tag($background-color: $color-accent-1);
+              }
+
+              .task__item-deadline {
+                font-size: x-small;
+                font-style: italic;
+              }
+            }
+
+            &-options2 {
+              @include flex($justify: end, $gap: 0);
+              font-size: $small-size;
+
+              .task__btn {
+                @include btn-icon();
+                background-color: transparent;
+                border: none;
+
+                &:hover {
+                  transform: scale(1.1);
+                }
+              }
+            }
+          }
+        }
+
+        .task__btn--add {
+          width: 100%;
+          margin-top: 1.8rem;
+          @include btn-icon($small-radius);
+
+          &:hover {
+            background-color: $color-dark;
+            color: $color-light;
+          }
+        }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////
+// CALENDAR MAIN SECTION STYLES
+
+#calendar {
+  &.hidden {
+    display: none;
+  }
+  .calendar {
+    &__wrapper {
+      width: 100%;
+      @include flex($justify: start, $align: start, $gap: 3.2rem);
+      flex-wrap: nowrap;
+      .calendar__sidebar {
+        box-shadow: $shadow;
+        border-radius: $small-radius;
+        padding: 2.4rem;
+        width: 35%;
+        &-date {
+          @include flex($gap: 2.4rem);
+
+          &-container {
+            overflow: hidden;
+            display: inline-block;
+            @include grid($gap: 0);
+            border: 1px solid $light-border;
+            border-radius: $small-radius;
+            margin-bottom: 2.4rem;
+
+            .calendar__date-month {
+              font-size: $base-size;
+              font-weight: 700;
+              color: $light-border;
+              background-color: $light-border;
+              color: $color-light;
+              padding: 1rem 2.4rem;
+            }
+            .calendar__date-day {
+              font-size: $base-size;
+              font-weight: 700;
+              color: $light-border;
+              padding: 1rem 2.4rem;
+              text-align: center;
+            }
+          }
+        }
+        &-task {
+          width: 90%;
+          @include grid($gap: 2.4rem);
+          &-header {
+            @include flex($justify: space-between);
+            border-bottom: 1px solid $light-border;
+            h2 {
+              padding-bottom: 0.5rem;
+            }
+            .calendar__sidebar-task-circles {
+              @include grid($columns: repeat(3, 1fr), $gap: 1.8rem);
+              padding-bottom: 1rem;
+
+              .circle-container {
+                @include grid($gap: 0.5rem);
+                .circle {
+                  margin: 0 auto;
+                  width: 1rem;
+                  height: 1rem;
+                  border-radius: 50%;
+                  &-todo {
+                    background-color: #e0bcf7;
+                  }
+                  &-doing {
+                    background-color: #fbe2aa;
+                  }
+                  &-done {
+                    background-color: #bfecff;
+                  }
+                }
+
+                p {
+                  text-align: center;
+                  font-size: xx-small;
+                  color: $light-border;
+                }
+              }
+            }
+          }
+
+          .calendar__task {
+            h3 {
+              color: $light-border;
+              margin-bottom: 1.2rem;
+            }
+
+            .calendar__tasks {
+              max-width: 95%;
+
+              list-style: none;
+              @include grid();
+
+              .task__item {
+                &.task__item--calendar {
+                  @include card();
+                  padding: 1.8rem;
+                  width: 100%;
+                }
+                &-header {
+                  @include flex($justify: space-between);
+                  h4 {
+                    margin-bottom: 1rem;
+                  }
+
+                  .task__item-description1 {
+                    display: none;
+                  }
+
+                  .task__item-options1 {
+                    @include flex($justify: end, $gap: 0);
+                    font-size: $small-size;
+
+                    .task__btn {
+                      @include btn-icon();
+                      background-color: transparent;
+                      border: none;
+
+                      &:hover {
+                        transform: scale(1.1);
+                      }
+                    }
+                  }
+                }
+
+                &-description2 {
+                  font-size: x-small;
+                  margin-bottom: 1.8rem;
+                }
+
+                &-divider {
+                  display: none;
+                }
+
+                &-footer {
+                  @include flex($justify: space-between);
+                  margin: 1.2rem 0;
+
+                  .task__priority--low {
+                    @include tag($background-color: $color-accent-2);
+                  }
+
+                  .task__priority--medium {
+                    @include tag($background-color: $color-accent-3);
+                  }
+
+                  .task__priority--high {
+                    @include tag($background-color: $color-accent-1);
+                  }
+
+                  .task__item-deadline {
+                    font-size: x-small;
+                    font-style: italic;
+                  }
+                }
+                .task__item-options2 {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .calendar__content {
+        box-shadow: $shadow;
+        text-align: center;
+        width: 80%;
+        padding: 2.4rem;
+        border-radius: $small-radius;
+        margin: 0 auto;
+        .task__btn--add {
+          @include btn($background: $color-dark, $text: $color-light);
+        }
+        .calendar__header {
+          @include flex($justify: space-between);
+          margin: 3.2rem 0;
+
+          &-btn {
+            @include btn($background: $color-light, $text: $color-dark);
+            border: 1px solid $light-border;
+
+            &:hover {
+              background-color: $color-dark;
+              color: $color-light;
+            }
+          }
+          &-title {
+            font-size: $base-size;
+          }
+        }
+
+        .calendar__main {
+          margin-bottom: 2.4rem;
+          .calendar__head {
+            @include grid($columns: repeat(7, 1fr), $gap: 1rem);
+            padding: 1.2rem;
+            text-align: center;
+            border-radius: $small-radius;
+            background-color: $color-dark;
+            color: $color-light;
+            margin-bottom: 1.8rem;
+            font-size: $small-size;
+            p {
+              font-weight: 700;
+            }
+          }
+
+          .calendar__grid {
+            @include grid($columns: repeat(7, 1fr), $gap: 1.8rem);
+
+            .calendar__day {
+              max-width: 100%;
+              height: 8rem;
+              font-size: $large-size;
+              text-align: center;
+              border: 1px solid $light-border;
+              border-radius: $small-radius;
+
+              &:hover {
+                transform: translateY(-0.5rem);
+              }
+
+              &-today {
+                background-color: $color-dark;
+                color: $color-light;
+              }
+            }
+            .calendar__task-counter {
+              @include grid($columns: repeat(3, 1fr), $gap: 1rem);
+              padding: 0 2.4rem;
+              .calendar__task-state {
+                @include flex($justify: center);
+                width: 1.8rem;
+                height: 1.8rem;
+                padding: 0.4rem;
+                border-radius: 50%;
+                font-size: $x-small;
+                color: $color-dark;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
