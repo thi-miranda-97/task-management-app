@@ -238,6 +238,86 @@ pageLinks.forEach((link) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  // AUTHENTICATION
+  const authModal = document.querySelector(".auth");
+  const signupForm = document.getElementById("signup-form");
+  const loginForm = document.getElementById("login-form");
+  const switchToLogin = document.getElementById("switch-to-login");
+  const switchToSignup = document.getElementById("switch-to-signup");
+  const authEvent = document.getElementById("nav__btn--action");
+  const cancelButtons = document.querySelectorAll(".btn--cancel");
+
+  // Hide the modal initially
+  authModal.classList.add("hidden");
+  signupForm.classList.add("hidden");
+  loginForm.classList.add("hidden");
+
+  // Open the modal and default to the sign-up form
+  authEvent.addEventListener("click", (e) => {
+    e.preventDefault();
+    authModal.classList.remove("hidden");
+    signupForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+  });
+
+  // Switch to Log In
+  switchToLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    signupForm.classList.add("hidden");
+    loginForm.classList.remove("hidden");
+  });
+
+  // Switch to Sign Up
+  switchToSignup.addEventListener("click", (e) => {
+    e.preventDefault();
+    loginForm.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+  });
+
+  // Handle Sign Up
+  document.getElementById("signup").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("signup-username").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value.trim();
+
+    if (username && email && password) {
+      alert(`Welcome, ${username}! Your account has been created.`);
+      // Save user data to localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ username, email, password })
+      );
+      authEvent.textContent = `Welcome, ${username}`; // Update button text
+      authModal.classList.add("hidden"); // Close the modal
+    }
+  });
+
+  // Handle Log In
+  document.getElementById("login").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value.trim();
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.username === username && user.password === password) {
+      alert(`Welcome back, ${username}!`);
+      authEvent.textContent = `Welcome, ${username}`; // Update button text
+      authModal.classList.add("hidden"); // Close the modal
+    } else {
+      alert("Invalid username or password.");
+    }
+  });
+
+  // Add Cancel Action
+  cancelButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      authModal.classList.add("hidden");
+    });
+  });
+
+  // PAGES
   const savedPage = localStorage.getItem("currentPage");
   togglePage(savedPage || pageLinks[0].getAttribute("href").replace("#", ""));
   renderAllSections();

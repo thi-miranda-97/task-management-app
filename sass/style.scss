@@ -104,6 +104,88 @@ body {
   margin: 4.8rem auto;
 }
 
+.auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $overlay;
+  @include grid;
+  place-items: center;
+  z-index: 8000;
+
+  &.hidden {
+    display: none;
+  }
+  &__form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50rem;
+    background-color: $color-light;
+    padding: 2rem;
+    border-radius: $small-radius;
+
+    &.hidden {
+      display: none;
+    }
+    .auth__title {
+      margin-bottom: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    form {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 600;
+
+      input {
+        font-family: inherit;
+        font-size: inherit;
+        width: 100%;
+        height: 4rem;
+        padding: 0.5rem;
+        margin-bottom: 1.8rem;
+        border: 1px solid $light-border;
+        border-radius: $small-radius;
+        background-color: transparent;
+      }
+      .auth__btns {
+        @include flex($justify: center, $gap: 1.8rem);
+
+        .btn--primary {
+          @include btn($background: $color-dark, $text: $color-light);
+        }
+        .btn--cancel {
+          @include btn($background: $color-light, $text: $light-border);
+          border: 1px solid $light-border;
+        }
+
+        button:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .auth__text {
+      margin-top: 2.4rem;
+      text-align: center;
+      color: $light-border;
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .nav {
   @include flex($justify: space-between);
   @extend .section;
@@ -123,9 +205,9 @@ body {
   }
 
   &__links {
-    @include grid($columns: repeat(3, 1fr), $gap: 3.2rem);
+    @include grid($columns: repeat(4, 1fr), $gap: 3.2rem);
     text-align: center;
-    width: 50rem;
+    width: 100rem;
     padding: 2rem 4rem;
     border-radius: $large-radius;
     box-shadow: $shadow;
@@ -135,7 +217,7 @@ body {
       background-color: inherit;
       text-decoration: none;
       font-size: $x-small;
-
+      cursor: pointer;
       color: $light-border;
       padding: 0.4rem 2rem;
       border: 1px solid $light-border;
@@ -151,15 +233,24 @@ body {
         font-weight: 600;
       }
     }
-  }
 
-  &__user {
-    @include flex();
-    div {
-      width: 4.8rem;
-      height: 4.8rem;
-      border-radius: 50%;
-      background-color: $color-dark;
+    #nav__btn--action {
+      width: 100%;
+      background-color: inherit;
+      text-decoration: none;
+      font-size: $x-small;
+      cursor: pointer;
+      color: $light-border;
+      padding: 0.4rem 2rem;
+      border: 1px solid $light-border;
+      border-radius: $small-radius;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: $color-dark;
+        color: $color-light;
+        font-weight: 600;
+      }
     }
   }
 }
@@ -241,12 +332,6 @@ body {
     }
   }
 }
-
-// .task__item {
-//   @include card();
-//   padding: 1rem;
-//   width: 100%;
-// }
 
 .no-task-message {
   font-size: xx-small;
@@ -428,6 +513,7 @@ body {
               @include card();
               padding: 1rem;
               width: 100%;
+              background-color: $color-light;
               @include grid($columns: 2fr 1fr 0.2fr, $gap: 3.2rem);
             }
 

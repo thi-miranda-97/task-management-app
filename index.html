@@ -8,6 +8,76 @@
     <title>Task Management</title>
   </head>
   <body>
+    <!-- LOGIN AND SIGNUP -->
+    <div class="auth">
+      <div class="auth__form auth__form--signup" id="signup-form">
+        <h2 class="auth__title">Sign Up</h2>
+        <form class="auth__form-content" id="signup">
+          <input
+            type="text"
+            class="auth__input"
+            id="signup-username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="email"
+            class="auth__input"
+            id="signup-email"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            class="auth__input"
+            id="signup-password"
+            placeholder="Password"
+            required
+          />
+          <div class="auth__btns">
+            <button type="submit" class="btn btn--primary">Sign Up</button>
+          <button class="btn--cancel">Cancel</button>
+          </div>
+          
+        </form>
+        <p class="auth__text">
+          Already have an account?
+          <a href="#" id="switch-to-login" class="auth__link">Log In</a>
+        </p>
+      </div>
+
+      <div class="auth__form auth__form--login hidden" id="login-form">
+        <h2 class="auth__title">Log In</h2>
+        <form class="auth__form-content" id="login">
+          <input
+            type="text"
+            class="auth__input"
+            id="login-username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            class="auth__input"
+            id="login-password"
+            placeholder="Password"
+            required
+          />
+          <div class="auth__btns">
+            <button type="submit" class="btn btn--primary">Log In</button>
+          <button class="btn--cancel">Cancel</button>
+          </div>
+        </form>
+        <p class="auth__text">
+          Don't have an account?
+          <a href="#" id="switch-to-signup" class="auth__link">Sign Up</a>
+        </p>
+      </div>
+    </div>
+
+
+
+    <!-- NAVIGATION -->
     <nav class="nav">
       <div class="nav__logo-container">
         <img src="./img/favicon.png" alt="Logo" class="nav__logo" />
@@ -17,11 +87,9 @@
         <a href="#overview" class="nav__link active">Overview</a>
         <a href="#list" class="nav__link">List</a>
         <a href="#calendar" class="nav__link">Calendar</a>
+        <a class="" id="nav__btn--action">Sign Up</a>
       </div>
-      <div class="nav__user">
-        <span class="nav__user-text">Welcome, Thi</span>
-        <div></div>
-      </div>
+      
     </nav>
 
     <!-- Modal for Adding a Task -->
