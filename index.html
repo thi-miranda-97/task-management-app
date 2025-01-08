@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- LOGIN AND SIGNUP -->
-    <div class="auth">
+    <div class="auth hidden">
       <div class="auth__form auth__form--signup" id="signup-form">
         <h2 class="auth__title">Sign Up</h2>
         <form class="auth__form-content" id="signup">
@@ -87,9 +87,8 @@
         <a href="#overview" class="nav__link active">Overview</a>
         <a href="#list" class="nav__link">List</a>
         <a href="#calendar" class="nav__link">Calendar</a>
-        <a class="" id="nav__btn--action">Sign Up</a>
       </div>
-      
+      <button class="nav__btn-signup" id="nav__btn--action">Sign Up</button>
     </nav>
 
     <!-- Modal for Adding a Task -->
@@ -214,22 +213,24 @@
             <div class="calendar__sidebar-task">
               <div class="calendar__sidebar-task-header">
                 <h2>Upcoming</h2>
-                <div class="calendar__sidebar-task-circles">
-                  <div class="circle-container">
-                    <div class="circle circle-todo"></div>
-                    <p>not started</p>
-                  </div>
-                  <div class="circle-container">
-                    <div class="circle circle-doing"></div>
-                    <p>in progress</p>
-                  </div>
-                  <div class="circle-container">
-                    <div class="circle circle-done"></div>
-                    <p>completed</p>
-                  </div>
+                
+              </div>
+              <div class="calendar__sidebar-task-circles">
+                <div class="circle-container">
+                  <div class="circle circle-todo"></div>
+                  <p>not started</p>
+                </div>
+                <div class="circle-container">
+                  <div class="circle circle-doing"></div>
+                  <p>in progress</p>
+                </div>
+                <div class="circle-container">
+                  <div class="circle circle-done"></div>
+                  <p>completed</p>
                 </div>
               </div>
 
+              
               <div class="calendar__task">
                 <h3>Today</h3>
                 <ul class="calendar__tasks" id="calendar-today">
