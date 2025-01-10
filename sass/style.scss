@@ -48,6 +48,7 @@ $large-radius: 1.5rem;
 
 @mixin btn($background, $text, $radius: $small-radius) {
   font-family: inherit;
+  font-size: $small-size;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: $background;
@@ -74,13 +75,21 @@ $large-radius: 1.5rem;
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
-  overflow-x: hidden;
-  @media (min-width: 1024px) {
-    font-size: 62.5%;
+  font-size: 62.5%; // Base for larger screens
+
+  @media (max-width: 1024px) {
+    font-size: 50%; // Slightly smaller font scaling
+  }
+
+  @media (max-width: 768px) {
+    font-size: 37.5%; // Half of 16px base (i.e., 8px)
+  }
+  @media (max-width: 768px) {
+    font-size: 25%; // Half of 16px base (i.e., 8px)
   }
 }
 
@@ -90,15 +99,22 @@ body {
   font-weight: 400;
   line-height: 1.6;
   padding: 0 3rem;
-  box-sizing: border-box;
   color: $color-dark;
   background-color: $color-light;
   margin: 0 auto;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 // REUSABLE COMPONENTS
+
 .section {
   margin: 4.8rem;
+
+  @media (max-width: 768px) {
+    margin: 1.8rem;
+  }
 }
 
 .auth {
@@ -110,7 +126,7 @@ body {
   background-color: $overlay;
   @include grid;
   place-items: center;
-  z-index: 8000;
+  z-index: 1000;
 
   &.hidden {
     display: none;
@@ -186,7 +202,11 @@ body {
 .nav {
   @include flex($justify: space-between);
   @extend .section;
-  max-width: 100%;
+
+  @media (max-width: 482px) {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
 
   &__logo-container {
     @include flex();
@@ -201,41 +221,45 @@ body {
       font-weight: 700;
     }
   }
+  .nav__actions {
+    @include flex($justify: space-between, $gap: 4.8rem);
+    .nav__links {
+      @include grid($columns: repeat(3, 1fr), $gap: 3.2rem);
+      text-align: center;
+      width: 60rem;
+      padding: 2rem 4rem;
+      border-radius: $large-radius;
+      box-shadow: $shadow;
 
-  &__links {
-    @include grid($columns: repeat(3, 1fr), $gap: 3.2rem);
-    text-align: center;
-    width: 60rem;
-    padding: 2rem 4rem;
-    border-radius: $large-radius;
-    box-shadow: $shadow;
+      .nav__link {
+        width: 100%;
+        background-color: inherit;
+        text-decoration: none;
+        font-size: $x-small;
+        cursor: pointer;
+        color: $light-border;
+        padding: 0.4rem 2rem;
+        border: 1px solid $light-border;
+        border-radius: $small-radius;
+        transition: all 0.3s;
 
-    .nav__link {
-      width: 100%;
-      background-color: inherit;
-      text-decoration: none;
-      font-size: $x-small;
-      cursor: pointer;
-      color: $light-border;
-      padding: 0.4rem 2rem;
-      border: 1px solid $light-border;
-      border-radius: $small-radius;
-      transition: all 0.3s;
-
-      &:hover {
-        transform: translateY(-0.5rem);
-      }
-      &.active {
-        background-color: $color-dark;
-        color: $color-light;
-        font-weight: 600;
+        &:hover {
+          transform: translateY(-0.5rem);
+        }
+        &.active {
+          background-color: $color-dark;
+          color: $color-light;
+          font-weight: 600;
+        }
       }
     }
-  }
-  .nav__btn-signup {
-    @include btn($background: $color-dark, $text: $color-light);
-    &:hover {
-      transform: scale(1.1);
+    .nav__btn-signup {
+      @include btn($background: $color-dark, $text: $color-light);
+      font-size: $x-small;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }
@@ -319,16 +343,23 @@ body {
 }
 
 .no-task-message {
-  font-size: xx-small;
+  font-size: 1rem;
   font-style: italic;
   color: $light-border;
   text-align: center;
+}
+
+.task__btn {
+  font-size: 1rem;
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // OVERVIEW MAIN SECTION STYLES
 #overview {
   @include grid($columns: repeat(3, 1fr), $gap: 2.4rem);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
   justify-content: space-between;
   align-items: start;
 
@@ -338,7 +369,7 @@ body {
 
   .task {
     width: 95%;
-    @include grid();
+    @include grid($gap: 2.4rem);
     margin-bottom: 1.8rem;
 
     &__state {
@@ -350,9 +381,15 @@ body {
     }
 
     &__list {
-      width: 95%;
+      width: 100%;
       list-style: none;
       @include grid($gap: 2.4rem);
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      @media (max-width: 482px) {
+        grid-template-columns: 1fr 1fr;
+      }
       margin: 0 auto;
 
       .task__item {
@@ -360,11 +397,13 @@ body {
           @include card();
           padding: 1rem;
           width: 100%;
+          font-size: 1rem;
         }
         &-header {
           @include flex($justify: space-between);
           h4 {
             margin-bottom: 1rem;
+            font-size: $small-size;
           }
 
           .task__item-description1 {
@@ -373,13 +412,28 @@ body {
 
           .task__item-options1 {
             @include flex($justify: end, $gap: 0);
-            font-size: $small-size;
+            font-size: 1.8rem;
 
             .task__btn {
               @include btn-icon();
               background-color: transparent;
               border: none;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: auto;
 
+              svg {
+                width: 100%;
+                height: auto;
+                max-width: 1.8rem;
+                max-height: 1.8rem;
+                @media (max-width: 482px) {
+                  max-width: 1.2rem;
+                  max-height: 1.2rem;
+                }
+              }
               &:hover {
                 transform: scale(1.1);
               }
@@ -388,7 +442,6 @@ body {
         }
 
         &-description2 {
-          font-size: x-small;
           margin-bottom: 1rem;
         }
 
@@ -415,7 +468,7 @@ body {
           }
 
           .task__item-deadline {
-            font-size: x-small;
+            font-size: inherit;
             font-style: italic;
           }
         }
@@ -455,16 +508,6 @@ body {
         transform: scale(1.05);
       }
     }
-    // &__filters {
-    //   @include flex($gap: 3.2rem);
-
-    //   #filter {
-    //     font-family: inherit;
-    //     font-size: $small-size;
-    //     padding: 0.8rem 1.2rem;
-    //     border-radius: $small-radius;
-    //   }
-    // }
 
     &__content {
       @include grid($gap: 2.4rem);
@@ -499,15 +542,21 @@ body {
               width: 100%;
               background-color: $color-light;
               @include grid($columns: 2fr 1fr 0.2fr, $gap: 3.2rem);
+              font-size: 1rem;
+              @media (max-width: 482px) {
+                grid-template-columns: 1fr 0.5fr 0.2fr;
+                gap: 1.2rem;
+              }
             }
 
             &-header {
               h4 {
+                font-size: $small-size;
                 margin-bottom: 0.5rem;
               }
 
               .task__item-description1 {
-                font-size: xx-small;
+                font-size: inherit;
               }
 
               .task__item-options1 {
@@ -526,6 +575,7 @@ body {
             &-footer {
               @include flex($justify: space-around);
               margin: 1.2rem 0;
+              font-size: inherit;
 
               .task__priority--low {
                 @include tag($background-color: $color-accent-2);
@@ -540,20 +590,35 @@ body {
               }
 
               .task__item-deadline {
-                font-size: x-small;
+                font-size: inherit;
                 font-style: italic;
               }
             }
 
-            &-options2 {
+            .task__item-options2 {
               @include flex($justify: end, $gap: 0);
-              font-size: $small-size;
+              font-size: 1.8rem;
 
               .task__btn {
                 @include btn-icon();
                 background-color: transparent;
                 border: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: auto;
 
+                svg {
+                  width: 100%;
+                  height: auto;
+                  max-width: 1.8rem;
+                  max-height: 1.8rem;
+                  @media (max-width: 482px) {
+                    max-width: 1.2rem;
+                    max-height: 1.2rem;
+                  }
+                }
                 &:hover {
                   transform: scale(1.1);
                 }
@@ -586,18 +651,25 @@ body {
   }
   .calendar {
     &__wrapper {
-      @include flex($justify: start, $align: start, $gap: 3.2rem);
+      @include flex($align: start);
+
+      @media (max-width: 1024px) {
+        align-items: center;
+        flex-direction: column; // Stack sidebar and calendar
+      }
       .calendar__sidebar {
         box-shadow: $shadow;
         border-radius: $small-radius;
         padding: 2.4rem;
         width: 40%;
+        @media (max-width: 1024px) {
+          width: 90%; // Stack sidebar and calendar
+        }
+
         &-date {
           @include flex($gap: 2.4rem);
 
           &-container {
-            overflow: hidden;
-            display: inline-block;
             @include grid($gap: 0);
             border: 1px solid $light-border;
             border-radius: $small-radius;
@@ -621,15 +693,16 @@ body {
           }
         }
         &-task {
-          @include grid($gap: 2.4rem);
-          &-header {
-            @include flex($justify: space-between);
+          @include flex();
+          flex-direction: column;
+          justify-content: start;
+
+          h2 {
+            padding-bottom: 0.5rem;
             border-bottom: 1px solid $light-border;
-            h2 {
-              padding-bottom: 0.5rem;
-            }
           }
-          .calendar__sidebar-task-circles {
+
+          &-circles {
             @include grid($columns: repeat(3, 1fr), $gap: 1.8rem);
             padding-bottom: 1rem;
 
@@ -659,14 +732,14 @@ body {
             }
           }
           .calendar__task {
+            width: 100%;
+
             h3 {
               color: $light-border;
               margin-bottom: 1.2rem;
             }
 
             .calendar__tasks {
-              max-width: 95%;
-
               list-style: none;
               @include grid();
 
@@ -675,10 +748,12 @@ body {
                   @include card();
                   padding: 1.8rem;
                   width: 100%;
+                  font-size: 1rem;
                 }
                 &-header {
                   @include flex($justify: space-between);
                   h4 {
+                    font-size: $small-size;
                     margin-bottom: 1rem;
                   }
 
@@ -688,13 +763,28 @@ body {
 
                   .task__item-options1 {
                     @include flex($justify: end, $gap: 0);
-                    font-size: $small-size;
+                    font-size: 1.8rem;
 
                     .task__btn {
                       @include btn-icon();
                       background-color: transparent;
                       border: none;
+                      display: inline-flex;
+                      align-items: center;
+                      justify-content: center;
+                      width: 100%;
+                      height: auto;
 
+                      svg {
+                        width: 100%;
+                        height: auto;
+                        max-width: 1.8rem;
+                        max-height: 1.8rem;
+                        @media (max-width: 482px) {
+                          max-width: 1.2rem;
+                          max-height: 1.2rem;
+                        }
+                      }
                       &:hover {
                         transform: scale(1.1);
                       }
@@ -703,7 +793,7 @@ body {
                 }
 
                 &-description2 {
-                  font-size: x-small;
+                  font-size: inherit;
                   margin-bottom: 1.8rem;
                 }
 
@@ -728,7 +818,7 @@ body {
                   }
 
                   .task__item-deadline {
-                    font-size: x-small;
+                    font-size: inherit;
                     font-style: italic;
                   }
                 }
@@ -748,6 +838,7 @@ body {
         border-radius: $small-radius;
         margin: 0 auto;
         width: 100%;
+
         .task__btn--add {
           @include btn($background: $color-dark, $text: $color-light);
         }
@@ -786,7 +877,7 @@ body {
           }
 
           .calendar__grid {
-            @include grid($columns: repeat(7, 1fr), $gap: 1.8rem);
+            @include grid($columns: repeat(7, 1fr), $gap: 1rem);
 
             .calendar__day {
               width: 100%;
@@ -806,15 +897,14 @@ body {
               }
             }
             .calendar__task-counter {
-              @include grid($columns: repeat(3, 1fr), $gap: 1rem);
+              @include flex($justify: center, $gap: 0.5rem);
               padding: 0 2.4rem;
               .calendar__task-state {
                 @include flex($justify: center);
                 width: 1.8rem;
                 height: 1.8rem;
-                padding: 0.4rem;
                 border-radius: 50%;
-                font-size: xx-small;
+                font-size: 1rem;
                 color: $color-dark;
                 text-align: center;
               }

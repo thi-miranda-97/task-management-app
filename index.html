@@ -8,6 +8,7 @@
     <title>Task Management</title>
   </head>
   <body>
+    
     <!-- LOGIN AND SIGNUP -->
     <div class="auth hidden">
       <div class="auth__form auth__form--signup" id="signup-form">
@@ -83,13 +84,18 @@
         <img src="./img/favicon.png" alt="Logo" class="nav__logo" />
         <span class="nav__logo-text">TASK.</span>
       </div>
+      
+      <div class="nav__actions">
       <div class="nav__links">
         <a href="#overview" class="nav__link active">Overview</a>
         <a href="#list" class="nav__link">List</a>
         <a href="#calendar" class="nav__link">Calendar</a>
+        </div>
+        <button class="nav__btn-signup" id="nav__btn--action">Sign Up</button>
       </div>
-      <button class="nav__btn-signup" id="nav__btn--action">Sign Up</button>
     </nav>
+      </div>
+      
 
     <!-- Modal for Adding a Task -->
     <div id="task-modal" class="modal hidden">
@@ -166,15 +172,7 @@
       <!-- Task List Section -->
       <section id="list" class="section">
         <div class="list">
-          <!-- <div class="list__filters">
-            <select name="filter" id="filter" class="list__filter-select">
-              <option value="all">All tasks</option>
-              <option value="today">Today's tasks</option>
-              <option value="upcoming">Upcoming tasks</option>
-              <option value="overdue">Overdue tasks</option>
-            </select>
-            
-          </div> -->
+          
           <button class="list__btn task__btn--add">Add New Task</button>
           <div class="list__content">
             <div class="list__category">
@@ -196,6 +194,8 @@
       <!-- Calendar Section -->
       <section id="calendar" class="section">
         <div class="calendar__wrapper">
+
+        
           <div class="calendar__sidebar">
             <div class="calendar__sidebar-date">
               <div class="calendar__sidebar-date-container">
@@ -211,10 +211,9 @@
             </div>
 
             <div class="calendar__sidebar-task">
-              <div class="calendar__sidebar-task-header">
-                <h2>Upcoming</h2>
-                
-              </div>
+              
+                <h2>Your Tasks</h2>
+              
               <div class="calendar__sidebar-task-circles">
                 <div class="circle-container">
                   <div class="circle circle-todo"></div>
@@ -237,14 +236,23 @@
                   <!-- TASK CARD ITEM HERE -->
                 </ul>
               </div>
+
+              
+
               <div class="calendar__task">
-                <h3>Tomorrow</h3>
-                <ul class="calendar__tasks" id="calendar-tomorrow">
+                <h3>Upcoming</h3>
+                <ul class="calendar__tasks" id="calendar-upcoming">
                   <!-- TASK CARD ITEM HERE -->
                 </ul>
               </div>
+
+
             </div>
           </div>
+
+
+
+<!-- Calendar render -->
           <div class="calendar__content">
             
 
@@ -275,13 +283,14 @@
                 </div>
                 <button class="task__btn task__btn--add">Add New Task</button>
               </div>
+          
               
             </div>
           </div>
         </div>
       </section>
     </main>
-
+  
     <script src="./js/app.js" defer></script>
   </body>
 </html>

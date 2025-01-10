@@ -2,15 +2,25 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
-  overflow-x: hidden;
+  font-size: 62.5%;
 }
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
   html {
-    font-size: 62.5%;
+    font-size: 50%;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 37.5%;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 25%;
   }
 }
 
@@ -20,14 +30,21 @@ body {
   font-weight: 400;
   line-height: 1.6;
   padding: 0 3rem;
-  box-sizing: border-box;
   color: #222222;
   background-color: #fbfbfb;
   margin: 0 auto;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 .section, .nav {
   margin: 4.8rem;
+}
+@media (max-width: 768px) {
+  .section, .nav {
+    margin: 1.8rem;
+  }
 }
 
 .auth {
@@ -43,7 +60,7 @@ body {
   justify-content: center;
   align-items: center;
   place-items: center;
-  z-index: 8000;
+  z-index: 1000;
 }
 .auth.hidden {
   display: none;
@@ -90,6 +107,7 @@ body {
 }
 .auth__form form .auth__btns .btn--primary {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #222222;
@@ -100,6 +118,7 @@ body {
 }
 .auth__form form .auth__btns .btn--cancel {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #fbfbfb;
@@ -130,7 +149,12 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  max-width: 100%;
+}
+@media (max-width: 482px) {
+  .nav {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
 }
 .nav__logo-container {
   display: flex;
@@ -146,7 +170,13 @@ body {
   font-size: 2.4rem;
   font-weight: 700;
 }
-.nav__links {
+.nav .nav__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4.8rem;
+}
+.nav .nav__actions .nav__links {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3.2rem;
@@ -158,7 +188,7 @@ body {
   border-radius: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.nav__links .nav__link {
+.nav .nav__actions .nav__links .nav__link {
   width: 100%;
   background-color: inherit;
   text-decoration: none;
@@ -170,16 +200,17 @@ body {
   border-radius: 0.7rem;
   transition: all 0.3s;
 }
-.nav__links .nav__link:hover {
+.nav .nav__actions .nav__links .nav__link:hover {
   transform: translateY(-0.5rem);
 }
-.nav__links .nav__link.active {
+.nav .nav__actions .nav__links .nav__link.active {
   background-color: #222222;
   color: #fbfbfb;
   font-weight: 600;
 }
-.nav .nav__btn-signup {
+.nav .nav__actions .nav__btn-signup {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #222222;
@@ -187,8 +218,9 @@ body {
   border: none;
   border-radius: 0.7rem;
   cursor: pointer;
+  font-size: 1.4rem;
 }
-.nav .nav__btn-signup:hover {
+.nav .nav__actions .nav__btn-signup:hover {
   transform: scale(1.1);
 }
 
@@ -270,6 +302,7 @@ body {
 }
 .modal__content form div .modal__submit-btn {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #222222;
@@ -283,10 +316,14 @@ body {
 }
 
 .no-task-message {
-  font-size: xx-small;
+  font-size: 1rem;
   font-style: italic;
   color: #757575;
   text-align: center;
+}
+
+.task__btn {
+  font-size: 1rem;
 }
 
 #overview {
@@ -298,6 +335,11 @@ body {
   justify-content: space-between;
   align-items: start;
 }
+@media (max-width: 768px) {
+  #overview {
+    grid-template-columns: 1fr;
+  }
+}
 #overview.hidden {
   display: none;
 }
@@ -305,7 +347,7 @@ body {
   width: 95%;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.2rem;
+  gap: 2.4rem;
   justify-content: center;
   align-items: center;
   margin-bottom: 1.8rem;
@@ -318,7 +360,7 @@ body {
   border-radius: 0.7rem;
 }
 #overview .task__list {
-  width: 95%;
+  width: 100%;
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -327,12 +369,23 @@ body {
   align-items: center;
   margin: 0 auto;
 }
+@media (max-width: 768px) {
+  #overview .task__list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 482px) {
+  #overview .task__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 #overview .task__list .task__item.task__item--overview {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem 1.4rem;
   border-radius: 0.7rem;
   padding: 1rem;
   width: 100%;
+  font-size: 1rem;
 }
 #overview .task__list .task__item-header {
   display: flex;
@@ -342,6 +395,7 @@ body {
 }
 #overview .task__list .task__item-header h4 {
   margin-bottom: 1rem;
+  font-size: 1.6rem;
 }
 #overview .task__list .task__item-header .task__item-description1 {
   display: none;
@@ -351,7 +405,7 @@ body {
   align-items: center;
   justify-content: end;
   gap: 0;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 #overview .task__list .task__item-header .task__item-options1 .task__btn {
   border: 1px solid currentColor;
@@ -364,12 +418,28 @@ body {
   transition: all 0.3s;
   background-color: transparent;
   border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+#overview .task__list .task__item-header .task__item-options1 .task__btn svg {
+  width: 100%;
+  height: auto;
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+}
+@media (max-width: 482px) {
+  #overview .task__list .task__item-header .task__item-options1 .task__btn svg {
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+  }
 }
 #overview .task__list .task__item-header .task__item-options1 .task__btn:hover {
   transform: scale(1.1);
 }
 #overview .task__list .task__item-description2 {
-  font-size: x-small;
   margin-bottom: 1rem;
 }
 #overview .task__list .task__item-divider {
@@ -403,7 +473,7 @@ body {
   background-color: #a80000;
 }
 #overview .task__list .task__item-footer .task__item-deadline {
-  font-size: x-small;
+  font-size: inherit;
   font-style: italic;
 }
 #overview .task__list .task__item .task__item-options2 {
@@ -438,6 +508,7 @@ body {
 }
 #list .list .task__btn--add {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #222222;
@@ -494,12 +565,20 @@ body {
   gap: 3.2rem;
   justify-content: center;
   align-items: center;
+  font-size: 1rem;
+}
+@media (max-width: 482px) {
+  #list .list__content .list__category .list__tasks .task__item.task__item--list {
+    grid-template-columns: 1fr 0.5fr 0.2fr;
+    gap: 1.2rem;
+  }
 }
 #list .list__content .list__category .list__tasks .task__item-header h4 {
+  font-size: 1.6rem;
   margin-bottom: 0.5rem;
 }
 #list .list__content .list__category .list__tasks .task__item-header .task__item-description1 {
-  font-size: xx-small;
+  font-size: inherit;
 }
 #list .list__content .list__category .list__tasks .task__item-header .task__item-options1 {
   display: none;
@@ -516,6 +595,7 @@ body {
   justify-content: space-around;
   gap: 1.2rem;
   margin: 1.2rem 0;
+  font-size: inherit;
 }
 #list .list__content .list__category .list__tasks .task__item-footer .task__priority--low {
   padding: 0.4rem 1.4rem;
@@ -536,17 +616,17 @@ body {
   background-color: #a80000;
 }
 #list .list__content .list__category .list__tasks .task__item-footer .task__item-deadline {
-  font-size: x-small;
+  font-size: inherit;
   font-style: italic;
 }
-#list .list__content .list__category .list__tasks .task__item-options2 {
+#list .list__content .list__category .list__tasks .task__item .task__item-options2 {
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 0;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
-#list .list__content .list__category .list__tasks .task__item-options2 .task__btn {
+#list .list__content .list__category .list__tasks .task__item .task__item-options2 .task__btn {
   border: 1px solid currentColor;
   border-radius: 0.7rem;
   padding: 0 0.8rem;
@@ -557,8 +637,25 @@ body {
   transition: all 0.3s;
   background-color: transparent;
   border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
 }
-#list .list__content .list__category .list__tasks .task__item-options2 .task__btn:hover {
+#list .list__content .list__category .list__tasks .task__item .task__item-options2 .task__btn svg {
+  width: 100%;
+  height: auto;
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+}
+@media (max-width: 482px) {
+  #list .list__content .list__category .list__tasks .task__item .task__item-options2 .task__btn svg {
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+  }
+}
+#list .list__content .list__category .list__tasks .task__item .task__item-options2 .task__btn:hover {
   transform: scale(1.1);
 }
 #list .list__content .list__category .task__btn--add {
@@ -585,13 +682,24 @@ body {
   display: flex;
   align-items: start;
   justify-content: start;
-  gap: 3.2rem;
+  gap: 1.2rem;
+}
+@media (max-width: 1024px) {
+  #calendar .calendar__wrapper {
+    align-items: center;
+    flex-direction: column;
+  }
 }
 #calendar .calendar__wrapper .calendar__sidebar {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 0.7rem;
   padding: 2.4rem;
   width: 40%;
+}
+@media (max-width: 1024px) {
+  #calendar .calendar__wrapper .calendar__sidebar {
+    width: 90%;
+  }
 }
 #calendar .calendar__wrapper .calendar__sidebar-date {
   display: flex;
@@ -600,8 +708,6 @@ body {
   gap: 2.4rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-date-container {
-  overflow: hidden;
-  display: inline-block;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
@@ -627,23 +733,18 @@ body {
   text-align: center;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.4rem;
-  justify-content: center;
-  align-items: center;
-}
-#calendar .calendar__wrapper .calendar__sidebar-task-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   gap: 1.2rem;
+  flex-direction: column;
+  justify-content: start;
+}
+#calendar .calendar__wrapper .calendar__sidebar-task h2 {
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid #757575;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task-header h2 {
-  padding-bottom: 0.5rem;
-}
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.8rem;
@@ -651,39 +752,41 @@ body {
   align-items: center;
   padding-bottom: 1rem;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container .circle {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container .circle {
   margin: 0 auto;
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container .circle-todo {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container .circle-todo {
   background-color: #e0bcf7;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container .circle-doing {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container .circle-doing {
   background-color: #fbe2aa;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container .circle-done {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container .circle-done {
   background-color: #bfecff;
 }
-#calendar .calendar__wrapper .calendar__sidebar-task .calendar__sidebar-task-circles .circle-container p {
+#calendar .calendar__wrapper .calendar__sidebar-task-circles .circle-container p {
   text-align: center;
   font-size: 1rem;
   color: #757575;
+}
+#calendar .calendar__wrapper .calendar__sidebar-task .calendar__task {
+  width: 100%;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task h3 {
   color: #757575;
   margin-bottom: 1.2rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks {
-  max-width: 95%;
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -697,6 +800,7 @@ body {
   border-radius: 0.7rem;
   padding: 1.8rem;
   width: 100%;
+  font-size: 1rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header {
   display: flex;
@@ -705,6 +809,7 @@ body {
   gap: 1.2rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header h4 {
+  font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header .task__item-description1 {
@@ -715,7 +820,7 @@ body {
   align-items: center;
   justify-content: end;
   gap: 0;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header .task__item-options1 .task__btn {
   border: 1px solid currentColor;
@@ -728,12 +833,29 @@ body {
   transition: all 0.3s;
   background-color: transparent;
   border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+#calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header .task__item-options1 .task__btn svg {
+  width: 100%;
+  height: auto;
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+}
+@media (max-width: 482px) {
+  #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header .task__item-options1 .task__btn svg {
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+  }
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-header .task__item-options1 .task__btn:hover {
   transform: scale(1.1);
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-description2 {
-  font-size: x-small;
+  font-size: inherit;
   margin-bottom: 1.8rem;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-divider {
@@ -765,7 +887,7 @@ body {
   background-color: #a80000;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item-footer .task__item-deadline {
-  font-size: x-small;
+  font-size: inherit;
   font-style: italic;
 }
 #calendar .calendar__wrapper .calendar__sidebar-task .calendar__task .calendar__tasks .task__item .task__item-options2 {
@@ -781,6 +903,7 @@ body {
 }
 #calendar .calendar__wrapper .calendar__content .task__btn--add {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #222222;
@@ -798,6 +921,7 @@ body {
 }
 #calendar .calendar__wrapper .calendar__content .calendar__header-btn {
   font-family: inherit;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #fbfbfb;
@@ -837,7 +961,7 @@ body {
 #calendar .calendar__wrapper .calendar__content .calendar__main .calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1.8rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
 }
@@ -857,11 +981,10 @@ body {
   color: #fbfbfb;
 }
 #calendar .calendar__wrapper .calendar__content .calendar__main .calendar__grid .calendar__task-counter {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  justify-content: center;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0 2.4rem;
 }
 #calendar .calendar__wrapper .calendar__content .calendar__main .calendar__grid .calendar__task-counter .calendar__task-state {
@@ -871,9 +994,8 @@ body {
   gap: 1.2rem;
   width: 1.8rem;
   height: 1.8rem;
-  padding: 0.4rem;
   border-radius: 50%;
-  font-size: xx-small;
+  font-size: 1rem;
   color: #222222;
   text-align: center;
 }

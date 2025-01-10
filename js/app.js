@@ -19,7 +19,8 @@ const fullcurrentMonth = document.querySelector(
   ".calendar__sidebar-month-year"
 );
 const dateRange = document.querySelector(".calendar__sidebar-date-range");
-
+// Variables for the current date
+let currentDate = new Date();
 // //////////////////////////////////////////////////////////
 const sectionContainers = {
   overview: {
@@ -34,7 +35,7 @@ const sectionContainers = {
   },
   calendar: {
     today: document.getElementById("calendar-today"),
-    tomorrow: document.getElementById("calendar-tomorrow"),
+    upcoming: document.getElementById("calendar-upcoming"),
   },
 };
 
@@ -58,16 +59,23 @@ function togglePage(id) {
 }
 
 function calcDays(deadline) {
-  const today = new Date();
+  const currentDate = new Date();
   const finishedDay = new Date(deadline);
 
   // Normalize both dates to midnight
-  today.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
   finishedDay.setHours(0, 0, 0, 0);
 
   // Calculate the difference in days
-  const daysLeft = Math.ceil((finishedDay - today) / (1000 * 60 * 60 * 24));
-  return daysLeft > 0 ? `${daysLeft} days left` : "Deadline passed";
+  const daysLeft = (finishedDay - currentDate) / (1000 * 60 * 60 * 24);
+
+  if (daysLeft === 0) {
+    return "today";
+  } else if (daysLeft > 0) {
+    return daysLeft === 1 ? `${daysLeft} day left` : `${daysLeft} days left`;
+  } else {
+    return "Deadline passed";
+  }
 }
 
 function saveTasks() {
@@ -132,32 +140,33 @@ function renderSection(state, section, styleClass) {
   section.innerHTML = ""; // Clear the section before rendering
   let filteredTasks = [];
 
-  if (state === "today" || state === "tomorrow") {
-    // For calendar section, filter tasks by "today" or "tomorrow"
-    filteredTasks = tasks.filter((task) => {
-      const today = new Date();
+  if (state === "today" || state === "upcoming") {
+    // For calendar section, filter tasks by "today" or "upcoming"
 
+    filteredTasks = tasks.filter((task) => {
       const taskDeadline = new Date(task.deadline);
       const taskDay = taskDeadline.getDate();
       const taskMonth = taskDeadline.getMonth();
       const taskYear = taskDeadline.getFullYear();
 
       if (state === "today") {
+        const today = new Date(currentDate);
+        today.setDate(currentDate.getDate());
         // Check if the task's deadline is today
         return (
           taskYear === today.getFullYear() &&
           taskMonth === today.getMonth() &&
           taskDay === today.getDate()
         );
-      } else if (state === "tomorrow") {
-        // Check if the task's deadline is tomorrow
-        const tomorrow = new Date();
-        tomorrow.setDate(today.getDate() + 1);
+      } else if (state === "upcoming") {
+        // Check if the task's deadline is upcoming
+        const upcoming = new Date(currentDate);
+        upcoming.setDate(currentDate.getDate() + 1);
 
         return (
-          taskYear === tomorrow.getFullYear() &&
-          taskMonth === tomorrow.getMonth() &&
-          taskDay === tomorrow.getDate()
+          taskYear === upcoming.getFullYear() &&
+          taskMonth === upcoming.getMonth() &&
+          taskDay === upcoming.getDate()
         );
       }
       return false;
@@ -173,16 +182,16 @@ function renderSection(state, section, styleClass) {
   }
 
   const stateColors = {
-    todo: "#e0bcf7",
-    doing: "#fbe2aa",
-    done: "#bfecff",
+    todo: "#f0defb",
+    doing: "#fdf1d5",
+    done: "#dff6ff",
   };
 
   filteredTasks.forEach((task, index) => {
     const taskCard = createTaskCard(task, styleClass);
 
-    // Apply background color only for calendar sections (today or tomorrow)
-    if (state === "today" || state === "tomorrow") {
+    // Apply background color only for calendar sections (today or upcoming)
+    if (state === "today" || state === "upcoming") {
       taskCard.style.backgroundColor = stateColors[task.state];
     }
 
@@ -327,9 +336,9 @@ stateHeadings.forEach((col) => {
   const stateCol = col.textContent;
   col.style.backgroundColor =
     {
-      "Not Started": "#e0bcf7",
-      "In Progress": "#fbe2aa",
-      Completed: "#bfecff",
+      "Not Started": "#f0defb",
+      "In Progress": "#fdf1d5",
+      Completed: "#dff6ff",
     }[stateCol] || "transparent";
 });
 
@@ -374,9 +383,6 @@ const calendarTitle = document.querySelector(".calendar__header-title");
 const calendarGrid = document.querySelector(".calendar__grid");
 const prevButton = document.querySelector(".calendar__header-btn--prev");
 const nextButton = document.querySelector(".calendar__header-btn--next");
-
-// Variables for the current date
-let currentDate = new Date();
 
 // Display the current day
 updateDate.textContent =
@@ -477,7 +483,7 @@ function renderCalendar() {
     // Filter tasks for the current day
     const dayTasks = tasks.filter((task) => {
       const taskDate = new Date(task.deadline);
-      console.log(taskDate);
+
       return (
         taskDate.getDate() === day &&
         taskDate.getMonth() === currentMonth &&
@@ -515,9 +521,9 @@ function renderCalendar() {
 
           // Apply styles (color coding for each state)
           const stateColors = {
-            todo: "#e0bcf7", // Light purple
-            doing: "#fbe2aa", // Light yellow
-            done: "#bfecff", // Light blue
+            todo: "#f0defb",
+            doing: "#fdf1d5",
+            done: "#dff6ff",
           };
           stateCounter.style.backgroundColor = stateColors[state];
 
