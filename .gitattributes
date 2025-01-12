@@ -3,3 +3,4 @@
 *.css linguist-detectable=false
 *.html linguist-generated=true
 *.css linguist-generated=true
+*.scss linguist-detectable=false
